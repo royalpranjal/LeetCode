@@ -1,16 +1,12 @@
 class Solution {
 public:
-    void make(vector<vector<int> >& ans, vector<int>& num, vector<int> temp, int curr, int sum, int target, map<vector<int>, bool>& m){
+    void make(vector<vector<int> >& ans, vector<int>& num, vector<int> temp, int curr, int sum, int target){
         int n = num.size();
         if(curr >= n){
             return;
         }
         else if(sum == target){
-            sort(temp.begin(), temp.end());
-            if(m.find(temp) == m.end()){
-                ans.push_back(temp);
-            }
-            m[temp] = true;
+            ans.push_back(temp);
             return;
         }
         else if(sum > target){
@@ -21,7 +17,7 @@ public:
             vector<int> tempp(temp);
             tempp.push_back(num[i]);
             int summ = sum + num[i];
-            make(ans, num, tempp, i, summ, target, m);
+            make(ans, num, tempp, i, summ, target);
         }
     }
     
@@ -34,8 +30,7 @@ public:
             vector<int> temp;
             temp.push_back(candidates[i]);
             int sum = candidates[i];
-            map<vector<int>, bool> m;
-            make(ans, candidates, temp, i, sum, target, m);
+            make(ans, candidates, temp, i, sum, target);
         }
         
         return ans;
